@@ -4,8 +4,18 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
 
-function Clima() {
+function App() {
+
+
+  return (
+  <>
+
+  <h1>Clima</h1>
   
+  </>
+  );
+
+
 }
 
-export default Clima
+export default App
