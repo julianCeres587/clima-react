@@ -1,14 +1,14 @@
-
-import './App.css'
+import './App.css';
 import { useState, useMemo } from 'react';
 import useFetch from './hooks/useFetch';
-import { describirClima } from './clima';
+import BarraBusqueda from './componentes/BarraBusqueda';
+import ListaCiudades from './componentes/ListaCiudades';
+import PronosticoDetalle from './componentes/PronosticoDetalle';
 
 export default function App() {
-
   const [texto, setTexto] = useState("");
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState(null);
- 
+
   const ciudad = texto.trim().toLowerCase();
   const buscar = ciudad.length >= 3;
 
@@ -63,33 +63,23 @@ export default function App() {
 
   return (
     <div className="buscador">
-
       <h1 className="buscador__titulo">Clima</h1>
-      <div className="buscador__fila">
-        <input
-          className="buscador__input"
-          value={texto}
-          onChange={(e) => setTexto(e.target.value)}
-          placeholder="Busca una ciudad"
-        />
-        <button className="buscador__limpiar" onClick={limpiarBusqueda}>Limpiar</button>
-      </div>
-     
+
+      <BarraBusqueda
+        texto={texto}
+        onCambiarTexto={setTexto}
+        onLimpiar={limpiarBusqueda}
+      />
+
       {buscando && <p className="buscador__mensaje">Buscando...</p>}
       {mostrarError && <p className="buscador__mensaje buscador__mensaje--error">{respuestaCiudades.error}</p>}
       {sinResultados && <p className="buscador__mensaje">Sin resultados</p>}
+
       {mostrarCiudades && (
-        <ul className="buscador__lista">
-          {ciudadesEncontradas.map((c) => (
-            <li
-              key={c.id}
-              className="buscador__item"
-              onClick={() => seleccionarCiudad(c)}
-            >
-              {c.name}, {c.admin1 ? `${c.admin1}, ` : ''}{c.country} 
-            </li>
-          ))}
-        </ul>
+        <ListaCiudades
+          ciudades={ciudadesEncontradas}
+          onSeleccionarCiudad={seleccionarCiudad}
+        />
       )}
 
       {/* Sección del Pronóstico */}
@@ -102,48 +92,12 @@ export default function App() {
       )}
 
       {ciudadSeleccionada && respuestaPronostico.datos && (
-        <div className="pronostico">
-          <h2 className="pronostico__ciudad">{ciudadSeleccionada.name}</h2>
-          
-          {respuestaPronostico.datos.current && (
-            <div className="pronostico__actual">
-              <span className="pronostico__temp">
-                {respuestaPronostico.datos.current.temperature_2m} °C
-              </span>
-              <span> · {describirClima(respuestaPronostico.datos.current.weather_code)}</span>
-              <span> · viento {respuestaPronostico.datos.current.wind_speed_10m} km/h</span>
-            </div>
-          )}
-
-          {resumenSemana && (
-            <p className="pronostico__resumen">
-              Esta semana: máxima {resumenSemana.max} °C, mínima {resumenSemana.min} °C. El día más caluroso es el {resumenSemana.diaMasCaluroso}.
-            </p>
-          )}
-
-          {respuestaPronostico.datos.daily && (
-            <div className="pronostico__semana">
-              {respuestaPronostico.datos.daily.time.map((fecha, i) => {
-                const diaSemana = new Date(`${fecha}T00:00:00`).toLocaleDateString('es-ES', { weekday: 'short' });
-                const diaCapitalizado = diaSemana.charAt(0).toUpperCase() + diaSemana.slice(1, 3);
-                const codigoClima = respuestaPronostico.datos.daily.weather_code[i];
-                const icono = describirClima(codigoClima).split(' ')[0];
-                const min = Math.round(respuestaPronostico.datos.daily.temperature_2m_min[i]);
-                const max = Math.round(respuestaPronostico.datos.daily.temperature_2m_max[i]);
-
-                return (
-                  <div key={fecha} className="pronostico__dia">
-                    <div>{diaCapitalizado}</div>
-                    <div className="pronostico__dia-icono">{icono}</div>
-                    <div>{min}–{max}</div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+        <PronosticoDetalle
+          ciudad={ciudadSeleccionada}
+          datosPronostico={respuestaPronostico.datos}
+          resumenSemana={resumenSemana}
+        />
       )}
     </div>
   );
 }
-
