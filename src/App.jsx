@@ -1,71 +1,51 @@
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
-import { useState, useEffect } from 'react';
 
+import './App.css'
+import { useState} from 'react';
+import useFetch from './hooks/useFetch';
 
 export default function App() {
 
   const [texto, setTexto] = useState("");
-  const [datos, setDatos] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
+ 
   const ciudad = texto.trim().toLowerCase();
   const buscar = ciudad.length >= 3;
 
-  let ciudadesEncontradas = [];
-  if (datos && datos.results) {
-    ciudadesEncontradas = datos.results;
+  let url = null;
+  if(buscar){
+    url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(ciudad)}&count=5&language=es`
   }
-  useEffect(() => {    //consulta la api
 
-    if (!buscar) return;
+  const respuesta = useFetch(url);
 
-    const control = new AbortController(); //crea abortController, leugo lo enlaza a la peticion
+  let ciudadesEncontradas = [];
+  if (respuesta.datos &&  respuesta.datos.results) {
+    ciudadesEncontradas = respuesta.datos.results;
+  }
+  
 
-    async function consultarApi() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const URL = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(ciudad)}&count=5&language=es`
-        const respuesta = await fetch(URL, { signal: control.signal }) //enlaza ese abortController con esta peticion '
-        if (!respuesta.ok) throw new Error("Error en la respuesta de la API");
-        const ciudades = await respuesta.json();
-        setDatos(ciudades);
-
-      }
-      catch (e) {
-        if (e.name === "AbortError") return; //si la peticion fue abortada, no hace nada
-        setError("Error al consultar la API: " + e.message);
-      }
-      setLoading(false);
-    }
-    consultarApi();
-
-    return () => control.abort()
-  }, [texto]); //efecto se activa cuando cambia texto
-
-  const buscando = buscar && loading;
-  const mostrarError = buscar && error;
-  const sinResultados = buscar && !loading && !error && ciudadesEncontradas.length === 0;
-  const mostrarCiudades = buscar && !loading && !error && ciudadesEncontradas.length > 0;
+  const buscando = buscar && respuesta.cargando;
+  const mostrarError = buscar && respuesta.error;
+  const sinResultados = buscar && respuesta.datos!==null && !respuesta.cargando && respuesta.error === null && ciudadesEncontradas.length === 0;
+  const mostrarCiudades = buscar && !respuesta.cargando && respuesta.error === null && ciudadesEncontradas.length > 0;
 
   return (
-    <div>
+    <div className="buscador">
 
-      <h1>Clima</h1>
-      <input value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Busca una ciudad" />
+      <h1  className="buscador__titulo">Clima</h1>
+      <div className="buscador__fila">
 
-      {buscando && <p>Buscando...</p>}
-      {mostrarError && <p>{error}</p>}
-      {sinResultados && <p>Sin resultados</p>}
+         <input className="buscador__input" value={texto} onChange={(e) => setTexto(e.target.value)} placeholder="Busca una ciudad" />
+         <button className="buscador__limpiar" onClick={()=>setTexto("")}>Limpiar</button>
+
+      </div>
+     
+      {buscando && <p className="buscador__mensaje">Buscando...</p>}
+      {mostrarError && <p className="buscador__mensaje buscador__mensaje--error">{respuesta.error}</p>}
+      {sinResultados && <p className="buscador__mensaje">Sin resultados</p>}
       {mostrarCiudades && (
-        <ul>
+        <ul className="buscador__lista">
           {ciudadesEncontradas.map((c) => (
-            <li key={c.id}>
+            <li key={c.id} className="buscador__item">
               {c.name}, {c.admin1}, {c.country} 
             </li>
           ))}
