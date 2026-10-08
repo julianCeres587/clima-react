@@ -1,16 +1,51 @@
-# React + Vite
+# ⛅ Clima React
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Aplicación web desarrollada con **React** y **Vite** para consultar el clima actual y el pronóstico de los próximos siete días de cualquier ciudad del mundo, utilizando la API gratuita de **[Open-Meteo](https://open-meteo.com/)**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 ¿Qué hace la aplicación?
 
-## React Compiler
+- **Búsqueda inteligente de ciudades:** Busca ciudades por nombre con geocodificación automática y optimización mediante debounce (`useDebounce`) para evitar peticiones innecesarias mientras escribes.
+- **Clima actual:** Muestra la temperatura en tiempo real, descripción de la condición del clima con iconos descriptivos y velocidad del viento.
+- **Pronóstico a 7 días:** Desglose diario con temperaturas máximas y mínimas proyectadas.
+- **Resumen semanal optimizado:** Calcula de forma eficiente con `useMemo` la temperatura máxima y mínima de la semana y resalta el día más caluroso.
+- **Control de interfaz:** Enfoque automático y botón de limpieza rápida implementados con `useRef`.
+- **Hooks personalizados:** Manejo centralizado y desacoplado de peticiones asíncronas con cancelación vía `AbortController` (`useFetch`).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## 🛠️ Tecnologías utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- **React 19**
+- **Vite**
+- **Hooks de React:** `useState`, `useEffect`, `useMemo`, `useRef`, y hooks personalizados (`useFetch`, `useDebounce`).
+- **Open-Meteo API:**
+  - *Geocoding API:* búsqueda de coordenadas de ciudades.
+  - *Weather Forecast API:* obtención del clima actual y diario.
+
+---
+
+## 📦 Instalación y ejecución local
+
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/julianCeres587/clima-react.git
+   ```
+
+2. Entrar al directorio del proyecto:
+   ```bash
+   cd clima-react
+   ```
+
+3. Instalar las dependencias:
+   ```bash
+   npm install
+   ```
+
+4. Iniciar el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+5. Abrir en el navegador en la URL indicada (usualmente `http://localhost:5173`).
