@@ -88,3 +88,57 @@
   font-weight: 600;
   color:#e2e8f0;
 }
+
+/* Estilos del Pronóstico (Paso 3) */
+.pronostico {
+  margin-top: 20px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.pronostico__ciudad {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.pronostico__actual {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 1rem;
+  color: #4b5563;
+  margin-bottom: 16px;
+}
+
+.pronostico__temp {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.pronostico__semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.pronostico__dia {
+  padding: 8px 4px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pronostico__dia-icono {
+  font-size: 1.2rem;
+}
