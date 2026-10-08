@@ -1,10 +1,10 @@
-# ⛅ Clima React
+# Clima React
 
 Aplicación web desarrollada con **React** y **Vite** para consultar el clima actual y el pronóstico de los próximos siete días de cualquier ciudad del mundo, utilizando la API gratuita de **[Open-Meteo](https://open-meteo.com/)**.
 
 ---
 
-## 🚀 ¿Qué hace la aplicación?
+## ¿Qué hace la aplicación?
 
 - **Búsqueda inteligente de ciudades:** Busca ciudades por nombre con geocodificación automática y optimización mediante debounce (`useDebounce`) para evitar peticiones innecesarias mientras escribes.
 - **Clima actual:** Muestra la temperatura en tiempo real, descripción de la condición del clima con iconos descriptivos y velocidad del viento.
@@ -15,7 +15,7 @@ Aplicación web desarrollada con **React** y **Vite** para consultar el clima ac
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - **React 19**
 - **Vite**
@@ -26,7 +26,7 @@ Aplicación web desarrollada con **React** y **Vite** para consultar el clima ac
 
 ---
 
-## 📦 Instalación y ejecución local
+## Instalación y ejecución local
 
 1. Clonar el repositorio:
    ```bash
