@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import useFetch from './hooks/useFetch';
+import useDebounce from './hooks/useDebounce';
 import BarraBusqueda from './componentes/BarraBusqueda';
 import ListaCiudades from './componentes/ListaCiudades';
 import PronosticoDetalle from './componentes/PronosticoDetalle';
@@ -10,11 +11,13 @@ export default function App() {
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState(null);
   const inputRef = useRef(null);
 
+  const textoDebounced = useDebounce(texto, 400);
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  const ciudad = texto.trim().toLowerCase();
+  const ciudad = textoDebounced.trim().toLowerCase();
   const buscar = ciudad.length >= 3;
 
   let urlCiudades = null;
