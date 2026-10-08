@@ -1,6 +1,6 @@
 
 import './App.css'
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import useFetch from './hooks/useFetch';
 import { describirClima } from './clima';
 
@@ -25,6 +25,23 @@ export default function App() {
     : null;
 
   const respuestaPronostico = useFetch(urlPronostico);
+
+  const resumenSemana = useMemo(() => {
+    if (!respuestaPronostico.datos || !respuestaPronostico.datos.daily) return null;
+    console.log("calculando resumen");
+
+    const daily = respuestaPronostico.datos.daily;
+    const maxSemana = Math.max(...daily.temperature_2m_max);
+    const minSemana = Math.min(...daily.temperature_2m_min);
+    const indiceMasCaluroso = daily.temperature_2m_max.indexOf(maxSemana);
+    const diaMasCaluroso = daily.time[indiceMasCaluroso];
+
+    return {
+      max: maxSemana,
+      min: minSemana,
+      diaMasCaluroso
+    };
+  }, [respuestaPronostico.datos]);
 
   let ciudadesEncontradas = [];
   if (respuestaCiudades.datos && respuestaCiudades.datos.results) {
@@ -96,6 +113,12 @@ export default function App() {
               <span> · {describirClima(respuestaPronostico.datos.current.weather_code)}</span>
               <span> · viento {respuestaPronostico.datos.current.wind_speed_10m} km/h</span>
             </div>
+          )}
+
+          {resumenSemana && (
+            <p className="pronostico__resumen">
+              Esta semana: máxima {resumenSemana.max} °C, mínima {resumenSemana.min} °C. El día más caluroso es el {resumenSemana.diaMasCaluroso}.
+            </p>
           )}
 
           {respuestaPronostico.datos.daily && (
