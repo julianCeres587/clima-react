@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import useFetch from './hooks/useFetch';
 import BarraBusqueda from './componentes/BarraBusqueda';
 import ListaCiudades from './componentes/ListaCiudades';
@@ -8,6 +8,11 @@ import PronosticoDetalle from './componentes/PronosticoDetalle';
 export default function App() {
   const [texto, setTexto] = useState("");
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const ciudad = texto.trim().toLowerCase();
   const buscar = ciudad.length >= 3;
@@ -59,6 +64,8 @@ export default function App() {
 
   const limpiarBusqueda = () => {
     setTexto("");
+    setCiudadSeleccionada(null);
+    inputRef.current?.focus();
   };
 
   return (
@@ -69,6 +76,7 @@ export default function App() {
         texto={texto}
         onCambiarTexto={setTexto}
         onLimpiar={limpiarBusqueda}
+        inputRef={inputRef}
       />
 
       {buscando && <p className="buscador__mensaje">Buscando...</p>}

@@ -1,7 +1,8 @@
-export default function BarraBusqueda({ texto, onCambiarTexto, onLimpiar }) {
+export default function BarraBusqueda({ texto, onCambiarTexto, onLimpiar, inputRef }) {
   return (
     <div className="buscador__fila">
       <input
+        ref={inputRef}
         className="buscador__input"
         value={texto}
         onChange={(e) => onCambiarTexto(e.target.value)}
