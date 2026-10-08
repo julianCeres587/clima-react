@@ -1,188 +1,151 @@
 .buscador {
-  width: 100%;
-  max-width: 640px;
+  width: 75%;
+  max-width: none;
   margin: 0 auto;
-  padding: 0;
-  font-family: var(--font-family);
+  padding: 24px 16px;
+  text-align: left;
+  color: #1f2937;
+  font-family: var(--sans);
 }
 
 .buscador__titulo {
-  margin: 0 0 24px 0;
-  font-size: 2rem;
+  margin: 10px 0 30px;
+  font-size: 50px;
   font-weight: 700;
-  color: var(--text-main);
-  letter-spacing: -0.02em;
 }
 
 .buscador__fila {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .buscador__input {
   flex: 1;
-  padding: 12px 16px;
-  font-size: 0.95rem;
-  font-weight: 400;
-  color: var(--text-main);
-  background-color: var(--input-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 1rem;
+  color: #1f2937;
+  background: #fff;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .buscador__input:focus {
-  border-color: var(--accent-slate);
-  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15);
-}
-
-.buscador__input::placeholder {
-  color: var(--text-muted);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .buscador__limpiar {
-  padding: 0 18px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-main);
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  padding: 0 16px;
+  font-size: 0.95rem;
+  color: #374151;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s;
+
 }
 
 .buscador__limpiar:hover {
-  background-color: var(--hover-bg);
-  border-color: var(--accent-slate);
+  background: #0e5faf;
+  font-weight: 600;
+  color: #e2e8f0;
 }
 
 .buscador__mensaje {
-  margin: 14px 0 0 0;
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  margin: 12px 0 0;
+  color: #64748b;
 }
 
 .buscador__mensaje--error {
-  color: #ef4444;
+  color: #b91c1c;
 }
 
 .buscador__lista {
-  margin: 12px 0 0 0;
+  margin: 12px 0 0;
   padding: 0;
   list-style: none;
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .buscador__item {
-  padding: 12px 16px;
-  font-size: 0.92rem;
-  color: var(--text-main);
+  padding: 10px 14px;
   cursor: pointer;
-  border-bottom: 1px solid var(--border-color);
-  transition: background-color 0.15s ease;
+  color: #1f2937;
+  transition: background 0.15s;
 }
 
-.buscador__item:last-child {
-  border-bottom: none;
-}
 
 .buscador__item:hover {
-  background-color: var(--hover-bg);
-  font-weight: 500;
+  background: #0e5faf;
+  font-weight: 600;
+  color: #e2e8f0;
 }
 
 .pronostico {
-  margin-top: 24px;
-  padding: 24px;
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  margin-top: 20px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
 }
 
 .pronostico__ciudad {
-  margin: 0 0 10px 0;
-  font-size: 1.5rem;
+  margin: 0 0 8px;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--text-main);
-  letter-spacing: -0.01em;
+  color: #1f2937;
 }
 
 .pronostico__actual {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  margin-bottom: 20px;
+  gap: 6px;
+  font-size: 1rem;
+  color: #4b5563;
+  margin-bottom: 16px;
 }
 
 .pronostico__temp {
-  font-size: 2.25rem;
+  font-size: 1.875rem;
   font-weight: 700;
-  color: var(--text-main);
-  line-height: 1;
-  margin-right: 4px;
+  color: #111827;
 }
 
 .pronostico__resumen {
-  margin: 0 0 20px 0;
-  padding: 12px 16px;
-  background-color: var(--summary-bg);
-  border: 1px solid var(--summary-border);
-  border-radius: var(--radius-md);
-  font-size: 0.88rem;
-  line-height: 1.5;
-  color: var(--summary-text);
-  font-weight: 500;
+  margin: 0 0 16px;
+  padding: 8px 12px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #92400e;
 }
 
 .pronostico__semana {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
+  gap: 6px;
   text-align: center;
-}
-
-@media (max-width: 580px) {
-  .pronostico__semana {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 400px) {
-  .pronostico__semana {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  font-size: 0.85rem;
 }
 
 .pronostico__dia {
-  padding: 12px 6px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  background-color: var(--accent-light);
+  padding: 8px 4px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--text-main);
-  transition: transform 0.15s ease, border-color 0.15s ease;
-}
-
-.pronostico__dia:hover {
-  border-color: var(--accent-slate);
+  gap: 4px;
 }
 
 .pronostico__dia-icono {
-  font-size: 1.4rem;
-  margin: 2px 0;
+  font-size: 1.2rem;
 }
